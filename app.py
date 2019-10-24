@@ -4,17 +4,33 @@ import numpy as np
 from flask import Flask, request, jsonify
 import pickle
 from xgboost import XGBRegressor
+import pandas as pd
 
-app = Flask(__name__)# Load the model
-
+# load model
 model = pickle.load(open('model.pkl','rb'))
-@app.route('/api',methods=['POST'])
+
+# app
+app = Flask(__name__)
+
+# routes
+@app.route('/', methods=['POST'])
 
 def predict():
-    # Get the data from the POST request.
-    data = request.get_json(force=True)    # Make prediction using model loaded from disk as per the data.
-    prediction = model.predict([[np.array(data['bedroomcnt', 'bathroomcnt', 'regionidzip'])]])    # Take the first value of prediction
-    output = prediction[0]
+    # get data
+    data = request.get_json(force=True)
+
+    # convert data into dataframe
+    data.update((x, [y]) for x, y in data.items())
+    data_df = pd.DataFrame.from_dict(data)
+
+    # predictions
+    result = model.predict(data_df)
+
+    # send back to browser
+    output = {'results': float(result)}
+
+    # return data
+    return jsonify(results=output)
 
 if __name__ == '__main__':
     app.run(port = 5000, debug=True)
