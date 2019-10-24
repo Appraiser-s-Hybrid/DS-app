@@ -11,8 +11,8 @@ from xgboost import XGBRegressor
 import numpy as np
 import json# Importing the dataset
 
-df = pd.read_csv('/Users/tako/Desktop/repos/DS/zillow-prize-1/properties_2017.csv')
-df = df[['bedroomcnt', 'bathroomcnt', 'regionidzip', 'taxvaluedollarcnt']]
+#df = pd.read_csv('https://github.com/Appraiser-s-Hybrid/DS-app/blob/master/model.pkl')
+#df = df[['bedroomcnt', 'bathroomcnt', 'regionidzip', 'taxvaluedollarcnt']]
 
 df = df.dropna()
 
