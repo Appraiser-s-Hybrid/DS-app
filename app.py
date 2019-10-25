@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 import pickle
 from xgboost import XGBRegressor
 import pandas as pd
-from flask_cors import CORS, cross_origin
+#from flask_cors import CORS, cross_origin
 
 
 # load model
@@ -13,15 +13,15 @@ model = pickle.load(open('model.pkl','rb'))
 
 # app
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+#cors = CORS(app)
+#app.config['CORS_HEADERS'] = 'Content-Type'
 
 # routes
+#@app.route('/api', methods=['POST'])
+#@cross_origin(origin='appraisely.herokuapp.com',headers=['Content- Type','Authorization'])
+#def helloWorld():
+#  return "Hello, cross-origin-world!"
 @app.route('/api', methods=['POST'])
-@cross_origin(origin='appraisely.herokuapp.com',headers=['Content- Type','Authorization'])
-def helloWorld():
-  return "Hello, cross-origin-world!"
-
 def predict():
 
     # get data
@@ -36,9 +36,12 @@ def predict():
 
     # send back to browser
     output = {'results': float(result)}
+    response = jsonify(results=output)
+    response.headers.add('Access-Control-Allow-Origin', '*')
 
     # return data
-    return jsonify(results=output)
+    return response
+
 
 if __name__ == '__main__':
     app.run()
