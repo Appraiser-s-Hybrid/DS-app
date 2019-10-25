@@ -14,13 +14,13 @@ model = pickle.load(open('model.pkl','rb'))
 # app
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-cors = CORS(app, resources={r"/predict": {"origins": "http://localhost"}})
+cors = CORS(app)
 
 #@cross_origin(origin='appraisely.herokuapp.com',headers=['Content- Type','Authorization'])
 #def helloWorld():
 #  return "Hello, cross-origin-world!"
 @app.route('/predict', methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def predict():
 
     # get data
@@ -36,7 +36,7 @@ def predict():
     # send back to browser
     output = {'results': float(result)}
     response = jsonify(results=output)
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost')
+    #response.headers.add('Access-Control-Allow-Origin', 'http://localhost')
 
     # return data
     return response
