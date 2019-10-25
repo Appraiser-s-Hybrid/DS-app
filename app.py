@@ -7,17 +7,21 @@ from xgboost import XGBRegressor
 import pandas as pd
 from flask_cors import CORS
 
+
 # load model
 model = pickle.load(open('model.pkl','rb'))
 
 # app
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
-# cors
-CORS(app)
 
 # routes
 @app.route('/api', methods=['POST'])
+@cross_origin()
+def helloWorld():
+  return "Hello, cross-origin-world!"
 
 def predict():
     # get data
