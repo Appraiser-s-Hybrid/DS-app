@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 import pickle
 from xgboost import XGBRegressor
 import pandas as pd
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 
 # load model
