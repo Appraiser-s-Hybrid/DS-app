@@ -37,7 +37,7 @@ def predict():
     # send back to browser
     output = {'results': float(result)}
     response = jsonify(results=output)
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost')
 
     # return data
     return response
