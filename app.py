@@ -16,14 +16,14 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
 # routes
 @app.route('/api', methods=['POST'])
-@cross_origin()
+@cross_origin(origin='appraisely.herokuapp.com',headers=['Content- Type','Authorization'])
 def helloWorld():
   return "Hello, cross-origin-world!"
 
 def predict():
+
     # get data
     data = request.get_json(force=True)
 
